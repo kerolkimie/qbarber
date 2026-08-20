@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /home/qbarber/htdocs/qbarber/qbarber.my/public
+            cd /home/qbarber/htdocs/qbarber.my/public/
             git pull origin main
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
