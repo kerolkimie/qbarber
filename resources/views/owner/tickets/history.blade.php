@@ -1,0 +1,56 @@
+@extends('layouts.site')
+
+@section('title', 'Penggunaan Point')
+
+@section('navbar')
+    <x-owner-navbar />
+@endsection
+
+@section('content')
+<h4 class="font-display mb-4 mt-3">Sejarah Penggunaan Point</h4>
+@if ($from || $to)
+    <p class="text-muted small mb-3">
+        Tempoh: {{ $from ? $from->format('d M Y') : 'Awal' }} — {{ $to ? $to->format('d M Y') : 'Sekarang' }}
+    </p>
+@endif
+
+<form method="GET" action="{{ route('owner.tickets.history') }}" class="card card-brand mb-4">
+    <div class="card-body p-3 d-flex align-items-center gap-2 flex-wrap">
+        <label class="fw-semibold small mb-0">Cawangan:</label>
+        <select name="branch_id" class="form-select" style="max-width:240px;">
+            <option value="">Semua Cawangan</option>
+            @foreach ($branches as $b)
+                <option value="{{ $b->id }}" {{ (string) $branchId === (string) $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="btn btn-pine btn-sm">Tapis</button>
+    </div>
+</form>
+
+<div class="card card-brand mb-3">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+<table class="table mb-0 align-middle">
+            <thead>
+                <tr><th>Tiket</th><th>Cawangan</th><th>Servis</th><th>Tukang Gunting</th><th>1 Point Digunakan</th></tr>
+            </thead>
+            <tbody>
+                @forelse ($tickets as $t)
+                    <tr>
+                        <td>#{{ str_pad($t->ticket_number, 3, '0', STR_PAD_LEFT) }}</td>
+                        <td class="small text-muted">{{ $t->branch->name ?? '—' }}</td>
+                        <td>{{ $t->service->name ?? '—' }}</td>
+                        <td class="small text-muted">{{ $t->barber->name ?? '—' }}</td>
+                        <td class="small text-muted">{{ $t->completed_at->format('d M Y, h:i A') }}</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="5" class="text-center text-muted py-4">Tiada rekod untuk tempoh/cawangan ni.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+</div>
+{{ $tickets->links('pagination::bootstrap-5') }}
+@endsection

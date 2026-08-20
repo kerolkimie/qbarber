@@ -1,0 +1,7 @@
+Tambah blok ni dalam config/services.php (dalam array yang dipulangkan):
+
+    'toyyibpay' => [
+        'base_url' => env('TOYYIBPAY_BASE_URL', 'https://dev.toyyibpay.com'),
+        'secret_key' => env('TOYYIBPAY_SECRET_KEY'),
+        'category_code' => env('TOYYIBPAY_CATEGORY_CODE'),
+    ],

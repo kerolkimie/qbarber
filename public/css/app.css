@@ -1,0 +1,232 @@
+/* ============================================================
+   Blade & Fade — Design Tokens (refresh pass)
+   Signature: animated barber-pole mark + notched paper ticket,
+   set against a fresh, airy SaaS canvas (not vintage/heavy).
+   ============================================================ */
+:root{
+  --ink:#15202B;
+  --pine:#2158B8;        /* fresh brand blue (brighter than before) */
+  --pine-deep:#0F2A4D;
+  --pine-light:#EAF1FC;  /* icon-badge / tint background */
+  --paper:#F3E9D2;       /* reserved for the ticket motif only */
+  --paper-dim:#E9DBB8;
+  --brass:#C79A3D;
+  --brass-soft:#E7C77A;
+  --brass-light:#FBF3E0;
+  --red:#E5484D;         /* fresh coral-red for primary CTAs */
+  --red-deep:#C93338;
+  --red-light:#FCEAEA;
+  --green-ok:#18A957;
+  --green-light:#E7F8EE;
+  --bg:#F5F7FB;           /* fresh cool canvas for app chrome */
+  --line:#E7E9F0;
+  --shadow-sm:0 1px 2px rgba(15,32,58,.05), 0 1px 1px rgba(15,32,58,.04);
+  --shadow-md:0 2px 4px rgba(15,32,58,.05), 0 12px 28px rgba(15,32,58,.08);
+  --shadow-lg:0 8px 16px rgba(15,32,58,.08), 0 24px 48px rgba(15,32,58,.12);
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+.font-display{
+  font-family:'Oswald', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+a{ transition:color .15s ease; }
+
+/* ---------- Navbar ---------- */
+.navbar-brand-bar{
+  background:linear-gradient(180deg, var(--pine) 0%, var(--pine-deep) 100%);
+  border-bottom:3px solid var(--brass);
+  box-shadow:0 2px 12px rgba(15,32,58,.15);
+}
+.navbar-brand-bar .navbar-brand{
+  color:#fff !important;
+  font-family:'Oswald', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  font-weight:600;
+}
+.pole-dot{
+  width:15px;height:34px;border-radius:7px;overflow:hidden;
+  background:repeating-linear-gradient(45deg,
+    #fff 0 8px, var(--red) 8px 16px, #fff 16px 24px, var(--pine-deep) 24px 32px);
+  background-size:100% 200%;
+  box-shadow:0 0 0 2px var(--brass-soft);
+  display:inline-block;
+  margin-right:10px;
+  animation:pole-spin 1.4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce){ .pole-dot{ animation:none; } }
+@keyframes pole-spin{ from{ background-position:0 0; } to{ background-position:0 32px; } }
+
+/* ---------- Buttons ---------- */
+.btn{ border-radius:8px; font-weight:600; }
+.btn-brand{
+  background:var(--red); border-color:var(--red); color:#fff;
+  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.5px;
+  box-shadow:0 2px 8px rgba(229,72,77,.28);
+}
+.btn-brand:hover{ background:var(--red-deep); border-color:var(--red-deep); color:#fff; transform:translateY(-1px); box-shadow:0 4px 12px rgba(229,72,77,.35); }
+.btn-brand:disabled{ background:#D8DCE6; border-color:#D8DCE6; color:#8A93A6; box-shadow:none; }
+
+.btn-pine{
+  background:var(--pine); border-color:var(--pine); color:#fff;
+  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.5px;
+}
+.btn-pine:hover{ background:var(--pine-deep); border-color:var(--pine-deep); color:#fff; transform:translateY(-1px); }
+
+.btn-finish{ background:var(--green-ok); border-color:var(--green-ok); color:#fff; }
+.btn-finish:hover{ background:#128744; border-color:#128744; color:#fff; }
+
+.btn-outline-secondary, .btn-outline-danger, .btn-outline-light{ border-radius:8px; }
+
+/* ---------- Cards ---------- */
+.card-brand{
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease, box-shadow .15s ease;
+  background:#fff;
+}
+.card-brand:hover{ box-shadow:var(--shadow-md); }
+.card-brand .card-header{
+  background:var(--pine); color:#fff;
+  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.5px;
+  border-bottom:3px solid var(--brass);
+  border-radius:15px 15px 0 0 !important;
+}
+
+/* ---------- Stat card with icon badge (dashboard signature) ---------- */
+.stat-tile{ text-decoration:none; color:inherit; display:block; }
+.stat-tile:hover .card-brand{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
+.stat-icon{
+  width:46px; height:46px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.15rem; flex-shrink:0;
+}
+.stat-icon-blue{ background:var(--pine-light); color:var(--pine); }
+.stat-icon-gold{ background:var(--brass-light); color:var(--brass); }
+.stat-icon-red{ background:var(--red-light); color:var(--red); }
+.stat-icon-green{ background:var(--green-light); color:var(--green-ok); }
+.stat-icon-ink{ background:#EEF0F4; color:var(--ink); }
+
+/* ---------- Ticket (signature element — kept as physical-paper accent) ---------- */
+.ticket-card{
+  background:var(--paper);
+  border-radius:14px;
+  padding:28px 22px 24px;
+  text-align:center;
+  box-shadow:var(--shadow-lg);
+  max-width:340px;
+  margin:0 auto;
+  position:relative;
+}
+.ticket-card::before, .ticket-card::after{
+  content:""; position:absolute; top:50%; width:20px; height:20px;
+  background:var(--bg); border-radius:50%; transform:translateY(-50%);
+}
+.ticket-card::before{ left:-10px; }
+.ticket-card::after{ right:-10px; }
+.ticket-card .eyebrow{ font-family:'JetBrains Mono', monospace; font-size:.7rem; letter-spacing:2px; color:var(--red); text-transform:uppercase; }
+.ticket-card .num{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:3.2rem; color:var(--pine); line-height:1; margin:6px 0 16px; }
+
+.badge-ticket{
+  font-family:'JetBrains Mono', monospace;
+  font-weight:700;
+  background:var(--pine);
+  color:#fff;
+  border-radius:6px;
+}
+
+.serving-panel{ background:linear-gradient(135deg, var(--pine) 0%, var(--pine-deep) 100%); color:#fff; border-radius:14px; padding:20px; box-shadow:var(--shadow-md); }
+.serving-panel .eyebrow{ color:var(--brass-soft); font-size:.75rem; letter-spacing:2px; text-transform:uppercase; }
+
+/* ---------- Landing hero ---------- */
+.hero-landing{
+  background:
+    radial-gradient(1200px 500px at 15% -10%, rgba(231,199,122,.18), transparent 60%),
+    linear-gradient(160deg, var(--pine) 0%, var(--pine-deep) 100%);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.hero-landing .brass-text{ color:var(--brass-soft); }
+
+.feature-icon{
+  width:52px; height:52px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; margin-bottom:14px;
+  background:var(--pine-light); color:var(--pine);
+}
+
+.pricing-card{ border-radius:18px; }
+.pricing-card.is-popular{ border:2px solid var(--brass) !important; box-shadow:var(--shadow-lg); }
+.pricing-ribbon{
+  background:linear-gradient(90deg, var(--brass) 0%, var(--brass-soft) 100%);
+  color:var(--pine-deep); font-family:'Oswald',sans-serif; letter-spacing:1.5px;
+  text-transform:uppercase; font-size:.72rem; text-align:center; padding:6px;
+  border-radius:16px 16px 0 0;
+}
+
+/* ---------- Tables ---------- */
+.table{ --bs-table-hover-bg: #F7F9FD; }
+.table thead th{ font-family:'Oswald',sans-serif; letter-spacing:.4px; text-transform:uppercase; font-size:.72rem; color:#6B7280; border-bottom-width:1px; }
+
+/* Butang tindakan (Edit/Padam/dll) dalam sel jadual — jarak kemas & wrap
+   elok bila ruang sempit, terutama di mobile. Guna selector .table td supaya
+   terpakai automatik pada SEMUA jadual sistem tanpa perlu ubah setiap fail. */
+.table td{ vertical-align:middle; }
+.table td form{ display:inline-block; margin:0; }
+.table td .btn{
+  margin:2px 3px 2px 0;
+  white-space:nowrap;
+}
+.table td:last-child{
+  white-space:normal;
+}
+
+@media (max-width: 575.98px){
+  .table td .btn-sm{
+    padding:.32rem .55rem;
+    font-size:.72rem;
+    border-radius:6px;
+  }
+  .table td:last-child{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:4px;
+  }
+  .table td:last-child form{ margin:0; }
+}
+
+/* ---------- Navbar mobile (hamburger) ---------- */
+.navbar-toggler{
+  border-color:rgba(255,255,255,.35);
+  padding:.35rem .6rem;
+}
+.navbar-toggler:focus{ box-shadow:0 0 0 .2rem rgba(255,255,255,.25); }
+.navbar-nav .nav-link{ padding-top:.4rem; padding-bottom:.4rem; }
+
+@media (max-width: 767.98px){
+  .navbar-collapse{
+    background:rgba(15,42,77,.35);
+    border-radius:10px;
+    padding:14px 16px;
+    margin-top:10px;
+  }
+  .font-display.display-4{ font-size:2.1rem; }
+  .font-display.display-5{ font-size:1.9rem; }
+  .font-display.display-6{ font-size:1.6rem; }
+  .ticket-card{ max-width:100%; }
+  .hero-landing{ padding:2rem 1.25rem !important; }
+}

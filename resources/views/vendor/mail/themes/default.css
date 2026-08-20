@@ -1,0 +1,164 @@
+/* Blade & Fade — Tema Emel */
+body,body *:not(html):not(style):not(br):not(tr):not(code) {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+}
+
+body {
+    -webkit-text-size-adjust: none;
+    background-color: #F5F7FB;
+    color: #15202B;
+    height: 100%;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+}
+
+p, ul, ol, blockquote {
+    line-height: 1.6;
+    text-align: left;
+}
+
+a {
+    color: #2158B8;
+}
+
+a img { border: none; }
+
+td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+
+.wrapper {
+    background-color: #F5F7FB;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.content { margin: 0; padding: 0; width: 100%; }
+
+.header {
+    padding: 30px 0;
+    text-align: center;
+}
+
+.header a {
+    color: #2158B8;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.body {
+    background-color: #F5F7FB;
+    border-bottom: 1px solid #E7E9F0;
+    border-top: 1px solid #E7E9F0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.inner-body {
+    background-color: #FFFFFF;
+    border-color: #E7E9F0;
+    border-radius: 10px;
+    border-width: 1px;
+    border-top: 4px solid #C79A3D;
+    box-shadow: 0 2px 4px rgba(15, 32, 58, .06);
+    margin: 0 auto;
+    padding: 0;
+    width: 570px;
+}
+
+.content-cell { padding: 38px; }
+
+.footer {
+    margin: 0 auto;
+    padding: 24px 0;
+    text-align: center;
+    width: 570px;
+}
+
+.footer p { color: #9CA3AF; font-size: 12px; text-align: center; }
+
+h1, h2, h3 {
+    color: #15202B;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-top: 0;
+    text-align: left;
+}
+
+h1 { font-size: 22px; }
+h2 { font-size: 18px; }
+h3 { font-size: 16px; }
+
+/* Button (guna warna jenama coral-red) */
+.action {
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.button {
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.button-blue, .button-primary {
+    background-color: #E5484D;
+    border-bottom: 8px solid #E5484D;
+    border-left: 18px solid #E5484D;
+    border-right: 18px solid #E5484D;
+    border-top: 8px solid #E5484D;
+}
+
+.button-green, .button-success {
+    background-color: #18A957;
+    border-bottom: 8px solid #18A957;
+    border-left: 18px solid #18A957;
+    border-right: 18px solid #18A957;
+    border-top: 8px solid #18A957;
+}
+
+.button-red, .button-error {
+    background-color: #C93338;
+    border-bottom: 8px solid #C93338;
+    border-left: 18px solid #C93338;
+    border-right: 18px solid #C93338;
+    border-top: 8px solid #C93338;
+}
+
+.panel {
+    background-color: #FBF3E0;
+    border-left: 4px solid #C79A3D;
+    margin: 21px 0;
+}
+
+.panel-content { color: #15202B; padding: 16px; }
+
+table.data-wrapper { margin: 0 0 24px; width: 100%; }
+
+table.data-wrapper table { width: 100%; }
+
+table.data-wrapper th {
+    border-bottom: 1px solid #E7E9F0;
+    margin: 0; padding: 8px 0; text-align: left;
+}
+
+table.data-wrapper td {
+    border-bottom: 1px solid #E7E9F0;
+    margin: 0; padding: 8px 0; color: #6B7280;
+}
+
+.subcopy {
+    border-top: 1px solid #E7E9F0;
+    margin-top: 25px; padding-top: 25px;
+}
+
+.subcopy p { font-size: 13px; color: #9CA3AF; }
