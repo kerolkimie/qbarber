@@ -19,7 +19,7 @@ class OwnerBranchController extends Controller
             ->latest()
             ->get();
 
-        return view('owner.branches.index', compact('branches'));
+        return view('owner.branches.index', compact('branches', 'owner'));
     }
 
     public function create()
@@ -67,12 +67,26 @@ class OwnerBranchController extends Controller
     {
         $this->authorizeBranch($branch);
 
+        $owner = Auth::user()->owner;
+
+        if ($owner->isBranchLocked($branch)) {
+            return redirect()->route('owner.branches.index')
+                ->with('error', 'Cawangan "' . $branch->name . '" melebihi had pakej semasa anda — boleh dilihat sahaja, tak boleh dikemaskini. Upgrade pakej untuk urus cawangan ni semula.');
+        }
+
         return view('owner.branches.edit', compact('branch'));
     }
 
     public function update(Request $request, Branch $branch)
     {
         $this->authorizeBranch($branch);
+
+        $owner = Auth::user()->owner;
+
+        if ($owner->isBranchLocked($branch)) {
+            return redirect()->route('owner.branches.index')
+                ->with('error', 'Cawangan "' . $branch->name . '" melebihi had pakej semasa anda — boleh dilihat sahaja, tak boleh dikemaskini. Upgrade pakej untuk urus cawangan ni semula.');
+        }
 
         $validated = $request->validate([
             'name' => 'required|string|max:150',

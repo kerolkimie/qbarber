@@ -13,10 +13,18 @@
             <div class="card-header py-3">Sahkan Pembayaran</div>
             <div class="card-body p-4">
 
-                <div class="alert alert-warning small">
-                    ⚠️ Ini simulasi pembayaran (belum ada gateway sebenar dipasang seperti
-                    Billplz/ToyyibPay/Stripe). Klik "Sahkan" untuk terus aktifkan pakej.
-                </div>
+                @if ($isScheduled)
+                    <div class="alert alert-warning small">
+                        📅 Pakej semasa anda masih aktif. Pakej <strong>{{ $plan->name }}</strong> ni akan
+                        <strong>DIJADUALKAN bermula {{ $startDate->format('d M Y') }}</strong> (bukan serta-merta) —
+                        pakej sedia ada anda kekal berkuat kuasa sehingga tarikh tu.
+                    </div>
+                @else
+                    <div class="alert alert-warning small">
+                        ⚠️ Ini simulasi pembayaran (belum ada gateway sebenar dipasang seperti
+                        Billplz/ToyyibPay/Stripe). Klik "Sahkan" untuk terus aktifkan pakej.
+                    </div>
+                @endif
 
                 <div class="d-flex justify-content-between border-bottom pb-3 mb-3">
                     <div>

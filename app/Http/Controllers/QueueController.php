@@ -33,8 +33,9 @@ class QueueController extends Controller
             ->get();
 
         // Sistem giliran cuma boleh diguna kalau owner ada subscription AKTIF
-        // (bukan lagi dihadkan ikut baki point).
-        $subscriptionValid = $branch->owner->hasValidSubscription();
+        // DAN cawangan ni sendiri TAK terkunci (tak melebihi had pakej semasa).
+        $subscriptionValid = $branch->owner->hasValidSubscription()
+            && ! $branch->owner->isBranchLocked($branch);
         $maxPax = $subscriptionValid ? 6 : 0;
 
         return view('queue.form', compact('branch', 'services', 'barbers', 'subscriptionValid', 'maxPax'));
@@ -52,8 +53,10 @@ class QueueController extends Controller
 
         $pax = (int) $request->input('pax', 1);
 
-        // Sistem cuma boleh diguna kalau owner ada subscription AKTIF.
-        $subscriptionValid = $branch->owner->hasValidSubscription();
+        // Sistem cuma boleh diguna kalau owner ada subscription AKTIF DAN
+        // cawangan ni sendiri TAK terkunci (tak melebihi had pakej semasa).
+        $subscriptionValid = $branch->owner->hasValidSubscription()
+            && ! $branch->owner->isBranchLocked($branch);
         $maxPax = $subscriptionValid ? 6 : 0;
 
         if ($maxPax < 1) {

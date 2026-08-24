@@ -26,7 +26,9 @@ class OwnerController extends Controller
             'subscriptions.plan', 'subscriptions.payments',
         ]);
 
-        return view('admin.owners.show', compact('owner'));
+        $plans = \App\Models\SubscriptionPlan::where('status', 'active')->orderBy('price')->get();
+
+        return view('admin.owners.show', compact('owner', 'plans'));
     }
 
     /**
@@ -64,5 +66,47 @@ class OwnerController extends Controller
         \App\Models\ActivityLog::record('account_activated_manual', "Admin aktifkan akaun \"{$owner->business_name}\" secara manual", $owner);
 
         return back()->with('success', 'Akaun "' . $owner->business_name . '" berjaya diaktifkan secara manual.');
+    }
+
+    /**
+     * Bagi TEMPOH PERCUBAAN kepada owner — admin pilih pakej untuk "dipinjam"
+     * ciri dia (had cawangan/kerusi) + bilangan hari, TANPA bayaran. Owner
+     * boleh guna sistem penuh sepanjang tempoh ni.
+     * Route: POST /admin/owners/{owner}/grant-trial
+     */
+    public function grantTrial(Request $request, Owner $owner)
+    {
+        $validated = $request->validate([
+            'plan_id' => 'required|exists:subscription_plans,id',
+            'days' => 'required|integer|min:1|max:90',
+        ]);
+
+        $days = (int) $validated['days'];
+        $plan = \App\Models\SubscriptionPlan::findOrFail($validated['plan_id']);
+
+        // Kalau owner ada subscription aktif sedia ada, jangan overlap — tandakan
+        // yang lama sebagai 'expired' dulu supaya tak konflik dengan trial baru.
+        $owner->activeSubscription?->update(['status' => 'expired']);
+
+        $subscription = \App\Models\Subscription::create([
+            'owner_id' => $owner->id,
+            'plan_id' => $plan->id,
+            'agent_id' => $owner->agent_id,
+            'start_date' => today(),
+            'end_date' => today()->addDays($days),
+            'amount_paid' => 0,
+            'status' => 'active',
+            'is_trial' => true,
+        ]);
+
+        \App\Models\ActivityLog::record(
+            'trial_granted',
+            "Admin bagi tempoh percubaan {$days} hari (pakej {$plan->name}) kepada \"{$owner->business_name}\", tamat pada " . $subscription->end_date->format('d M Y'),
+            $subscription,
+            ['plan' => $plan->name, 'days' => $days]
+        );
+
+        return redirect()->route('admin.owners.show', $owner)
+            ->with('success', "Tempoh percubaan {$days} hari (pakej {$plan->name}) berjaya diberikan kepada {$owner->business_name}.");
     }
 }

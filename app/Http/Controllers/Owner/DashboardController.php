@@ -47,10 +47,13 @@ class DashboardController extends Controller
         $chairLimit = $owner->chairLimit();
         $chairUsed = $owner->totalActiveBarbers();
         $isPerBranchChairLimit = $owner->isPerBranchChairLimit();
+        $isOverBranchLimit = $owner->isOverBranchLimit();
+        $isOverChairLimit = $owner->isOverChairLimit();
 
         return view('owner.dashboard', compact(
             'owner', 'branches', 'todayServed', 'todayWaiting', 'recentServed', 'recentWaiting',
-            'subscription', 'subscriptionValid', 'branchLimit', 'chairLimit', 'chairUsed', 'isPerBranchChairLimit'
+            'subscription', 'subscriptionValid', 'branchLimit', 'chairLimit', 'chairUsed', 'isPerBranchChairLimit',
+            'isOverBranchLimit', 'isOverChairLimit'
         ));
     }
 }

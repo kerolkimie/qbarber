@@ -88,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/owners/{owner}', [\App\Http\Controllers\Admin\OwnerController::class, 'show'])->name('owners.show');
         Route::post('/owners/{owner}/activate', [\App\Http\Controllers\Admin\OwnerController::class, 'activate'])->name('owners.activate');
         Route::post('/owners/{owner}/renewal-mode', [\App\Http\Controllers\Admin\OwnerController::class, 'updateRenewalMode'])->name('owners.renewalMode.update');
+        Route::post('/owners/{owner}/grant-trial', [\App\Http\Controllers\Admin\OwnerController::class, 'grantTrial'])->name('owners.grantTrial');
         Route::get('/branches', [\App\Http\Controllers\Admin\BranchController::class, 'index'])->name('branches.index');
         Route::get('/subscriptions', [\App\Http\Controllers\Admin\SubscriptionController::class, 'index'])->name('subscriptions.index');
         Route::post('/subscriptions/{subscription}/recheck', [\App\Http\Controllers\Admin\SubscriptionController::class, 'recheck'])->name('subscriptions.recheck');

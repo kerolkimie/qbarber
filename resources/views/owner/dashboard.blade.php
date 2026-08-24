@@ -26,10 +26,27 @@
     <div class="alert d-flex justify-content-between align-items-center mt-3" style="background:var(--green-light); border:1px solid var(--green-ok); border-radius:12px;">
         <span class="d-flex align-items-center gap-2">
             <i class="bi bi-patch-check-fill" style="color:var(--green-ok);"></i>
-            Pakej <strong>{{ $subscription->plan->name }}</strong> aktif sehingga
-            <strong>{{ $subscription->end_date->format('d M Y') }}</strong>.
+            Pakej <strong>{{ $subscription->plan->name }}</strong>
+            @if ($subscription->is_trial)
+                <span class="badge text-bg-warning">Tempoh Percubaan</span>
+            @endif
+            aktif sehingga <strong>{{ $subscription->end_date->format('d M Y') }}</strong>.
         </span>
         <a href="{{ route('owner.subscription.index') }}" class="btn btn-sm btn-outline-secondary">Urus Subscription</a>
+    </div>
+@endif
+
+@if ($isOverBranchLimit || $isOverChairLimit)
+    <div class="alert d-flex align-items-center gap-2 mt-3" style="background:var(--brass-light); border:1px solid var(--brass); border-radius:12px;">
+        <i class="bi bi-exclamation-circle-fill" style="color:var(--brass);"></i>
+        <span>
+            Pakej semasa anda tak lagi cukup untuk bilangan
+            @if ($isOverBranchLimit) cawangan @endif
+            @if ($isOverBranchLimit && $isOverChairLimit) dan @endif
+            @if ($isOverChairLimit) kerusi @endif
+            sedia ada anda (mungkin lepas downgrade). Rekod sedia ada <strong>kekal boleh dilihat & diurus</strong>,
+            cuma anda <strong>tak boleh tambah lagi</strong> sehingga upgrade pakej atau kurangkan bilangan.
+        </span>
     </div>
 @endif
 
@@ -95,8 +112,9 @@
             </thead>
             <tbody>
                 @forelse ($branches as $branch)
+                    @php $locked = $owner->isBranchLocked($branch); @endphp
                     <tr>
-                        <td>{{ $branch->name }}</td>
+                        <td>{{ $branch->name }} @if ($locked)<span class="badge text-bg-danger">🔒</span>@endif</td>
                         <td>{{ $branch->barbers_count }}</td>
                         <td>{{ $branch->services_count }}</td>
                         <td><span class="badge text-bg-secondary text-capitalize">{{ $branch->status }}</span></td>
@@ -104,7 +122,9 @@
                             <a href="{{ route('owner.branches.qr', $branch) }}" class="btn btn-sm btn-brand">📱 QR</a>
                             <a href="{{ route('owner.branches.barbers.index', $branch) }}" class="btn btn-sm btn-pine">Tukang Gunting</a>
                             <a href="{{ route('owner.branches.services.index', $branch) }}" class="btn btn-sm btn-pine">Servis</a>
-                            <a href="{{ route('owner.branches.edit', $branch) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            @if (! $locked)
+                                <a href="{{ route('owner.branches.edit', $branch) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            @endif
                         </td>
                     </tr>
                 @empty

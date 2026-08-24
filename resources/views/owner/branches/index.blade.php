@@ -14,15 +14,24 @@
 
 <div class="row g-4">
     @forelse ($branches as $branch)
+        @php $locked = $owner->isBranchLocked($branch); @endphp
         <div class="col-md-6">
-            <div class="card card-brand h-100">
+            <div class="card card-brand h-100" style="{{ $locked ? 'opacity:0.72;' : '' }}">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                         <h5 class="font-display mb-0">{{ $branch->name }}</h5>
-                        <span class="badge {{ $branch->status === 'active' ? 'text-bg-success' : 'text-bg-secondary' }} text-capitalize">
-                            {{ $branch->status }}
-                        </span>
+                        <div class="d-flex gap-1">
+                            @if ($locked)
+                                <span class="badge text-bg-danger">🔒 Terkunci</span>
+                            @endif
+                            <span class="badge {{ $branch->status === 'active' ? 'text-bg-success' : 'text-bg-secondary' }} text-capitalize">
+                                {{ $branch->status }}
+                            </span>
+                        </div>
                     </div>
+                    @if ($locked)
+                        <p class="text-danger small mb-2">Melebihi had pakej semasa — lihat sahaja, tak boleh dikemaskini.</p>
+                    @endif
                     <p class="text-muted small mb-1">{{ $branch->address ?: 'Alamat belum diisi' }}</p>
                     <p class="text-muted small mb-3">{{ $branch->phone ?: '—' }}</p>
 
@@ -38,7 +47,9 @@
                     <div class="d-flex gap-2">
                         <a href="{{ route('owner.branches.barbers.index', $branch) }}" class="btn btn-pine btn-sm flex-grow-1">Tukang Gunting</a>
                         <a href="{{ route('owner.branches.services.index', $branch) }}" class="btn btn-pine btn-sm flex-grow-1">Servis</a>
-                        <a href="{{ route('owner.branches.edit', $branch) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        @if (! $locked)
+                            <a href="{{ route('owner.branches.edit', $branch) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        @endif
                     </div>
                 </div>
             </div>

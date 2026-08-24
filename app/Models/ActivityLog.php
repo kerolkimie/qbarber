@@ -22,6 +22,7 @@ class ActivityLog extends Model
         'commission_paid' => 'Komisen Dibayar',
         'account_activated_manual' => 'Akaun Diaktifkan (Manual)',
         'barber_transferred' => 'Tukang Gunting Dipindahkan',
+        'trial_granted' => 'Tempoh Percubaan Diberi',
     ];
 
     public function subject()

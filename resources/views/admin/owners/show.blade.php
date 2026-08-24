@@ -75,6 +75,44 @@
     </div>
 </div>
 
+<div class="row g-3 mb-5">
+    <div class="col-md-6">
+        <div class="card card-brand h-100">
+            <div class="card-header py-3">🎁 Bagi Tempoh Percubaan</div>
+            <div class="card-body p-4">
+                <p class="text-muted small mb-3">
+                    Aktifkan sistem penuh untuk owner ni TANPA bayaran, ikut had pakej yang dipilih.
+                    Kalau owner ada subscription aktif sekarang, ia akan digantikan.
+                </p>
+                <form method="POST" action="{{ route('admin.owners.grantTrial', $owner) }}"
+                      onsubmit="return confirm('Bagi tempoh percubaan kepada {{ $owner->business_name }}? Subscription aktif sedia ada (jika ada) akan digantikan.');">
+                    @csrf
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Pakej</label>
+                            <select name="plan_id" class="form-select" required>
+                                @foreach ($plans as $plan)
+                                    <option value="{{ $plan->id }}">{{ $plan->name }} ({{ $plan->max_branches }} cwg, {{ $plan->max_barbers }} kerusi{{ $plan->is_per_branch_limit ? '/cwg' : '' }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Bilangan Hari</label>
+                            <select name="days" class="form-select" required>
+                                <option value="7">7 hari</option>
+                                <option value="14">14 hari</option>
+                                <option value="20">20 hari</option>
+                                <option value="30">30 hari</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-brand w-100 mt-3">Bagi Tempoh Percubaan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h5 class="font-display mb-3">Cawangan</h5>
 <div class="card card-brand mb-5">
     <div class="card-body p-0">
@@ -108,10 +146,10 @@
             <tbody>
                 @forelse ($owner->subscriptions as $sub)
                     <tr>
-                        <td>{{ $sub->plan->name }}</td>
+                        <td>{{ $sub->plan->name }} @if ($sub->is_trial)<span class="badge text-bg-warning ms-1">Percubaan</span>@endif</td>
                         <td>{{ $sub->start_date->format('d M Y') }}</td>
                         <td>{{ $sub->end_date->format('d M Y') }}</td>
-                        <td>RM{{ number_format($sub->amount_paid, 2) }}</td>
+                        <td>{{ $sub->is_trial ? 'PERCUMA' : 'RM' . number_format($sub->amount_paid, 2) }}</td>
                         <td><span class="badge text-bg-secondary text-capitalize">{{ $sub->status }}</span></td>
                     </tr>
                 @empty

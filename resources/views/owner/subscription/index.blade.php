@@ -10,10 +10,15 @@
 <h4 class="font-display mb-4 mt-3">Subscription Saya</h4>
 
 @if ($currentSubscription)
-    <div class="card card-brand mb-5" style="border-color:var(--green-ok) !important;">
+    <div class="card card-brand mb-3" style="border-color:var(--green-ok) !important;">
         <div class="card-body p-4">
-            <p class="text-muted small mb-1">Pakej Aktif</p>
-            <h5 class="font-display mb-2">{{ $currentSubscription->plan->name }}</h5>
+            <p class="text-muted small mb-1">Pakej Aktif Sekarang</p>
+            <h5 class="font-display mb-2">
+                {{ $currentSubscription->plan->name }}
+                @if ($currentSubscription->is_trial)
+                    <span class="badge text-bg-warning">Percubaan</span>
+                @endif
+            </h5>
             <p class="mb-0">
                 Sah sehingga <strong>{{ $currentSubscription->end_date->format('d M Y') }}</strong>
                 ({{ now()->diffInDays($currentSubscription->end_date, false) }} hari lagi)
@@ -21,12 +26,31 @@
         </div>
     </div>
 @else
-    <div class="alert mb-5" style="background:var(--paper); border:1px solid var(--brass);">
+    <div class="alert mb-3" style="background:var(--paper); border:1px solid var(--brass);">
         Anda belum ada subscription aktif. Pilih pakej di bawah untuk aktifkan penuh ciri sistem.
     </div>
 @endif
 
-<h5 class="font-display mb-3">{{ $currentSubscription ? 'Upgrade / Perbaharui Pakej' : 'Pilih Pakej' }}</h5>
+@if ($upcomingSubscription)
+    <div class="alert d-flex align-items-center gap-2 mb-5" style="background:var(--pine-light,#EAF1FC); border:1px solid var(--pine);">
+        <i class="bi bi-calendar-event" style="color:var(--pine);"></i>
+        <span>
+            Pakej <strong>{{ $upcomingSubscription->plan->name }}</strong> sudah dijadualkan untuk bermula pada
+            <strong>{{ $upcomingSubscription->start_date->format('d M Y') }}</strong> (gantikan pakej semasa selepas tamat).
+        </span>
+    </div>
+@else
+    <div class="mb-5"></div>
+@endif
+
+<h5 class="font-display mb-3">{{ $currentSubscription ? 'Upgrade / Downgrade Pakej' : 'Pilih Pakej' }}</h5>
+@if ($currentSubscription && ! $upcomingSubscription)
+    <p class="text-muted small mb-3">
+        <strong>Upgrade</strong> (pakej lebih mahal) akan <strong>terus berkuat kuasa</strong> hari ini.
+        <strong>Downgrade</strong> (pakej sama/lebih murah) akan <strong>dijadualkan</strong> bermula selepas
+        pakej semasa tamat ({{ $currentSubscription->end_date->copy()->addDay()->format('d M Y') }}).
+    </p>
+@endif
 
 <div class="row g-4">
     @foreach ($plans as $plan)
@@ -45,9 +69,13 @@
                             <li class="mb-2 text-muted">✓ {{ $feature }}</li>
                         @endforeach
                     </ul>
-                    <a href="{{ route('owner.subscription.checkout', $plan) }}" class="btn btn-brand w-100 py-2">
-                        {{ $currentSubscription && $currentSubscription->plan_id === $plan->id ? 'Perbaharui' : 'Pilih Pakej Ini' }}
-                    </a>
+                    @if ($upcomingSubscription && $upcomingSubscription->plan_id === $plan->id)
+                        <button class="btn btn-outline-secondary w-100 py-2" disabled>Sudah Dijadualkan</button>
+                    @else
+                        <a href="{{ route('owner.subscription.checkout', $plan) }}" class="btn btn-brand w-100 py-2">
+                            {{ $currentSubscription && $currentSubscription->plan_id === $plan->id ? 'Perbaharui' : 'Pilih Pakej Ini' }}
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

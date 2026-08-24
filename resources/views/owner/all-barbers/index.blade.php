@@ -9,6 +9,16 @@
 @section('content')
 <h4 class="font-display mb-4 mt-3">Semua Tukang Gunting</h4>
 
+<form method="GET" action="{{ route('owner.barbers.index') }}" class="card card-brand mb-4">
+    <div class="card-body p-3 d-flex align-items-center gap-2 flex-wrap">
+        <input type="text" name="q" value="{{ $q }}" class="form-control" style="max-width:280px;" placeholder="Cari nama tukang gunting / cawangan">
+        <button type="submit" class="btn btn-pine btn-sm">Cari</button>
+        @if ($q)
+            <a href="{{ route('owner.barbers.index') }}" class="btn btn-outline-secondary btn-sm">Reset</a>
+        @endif
+    </div>
+</form>
+
 <div class="card card-brand">
     <div class="card-body p-0">
         <div class="table-responsive">

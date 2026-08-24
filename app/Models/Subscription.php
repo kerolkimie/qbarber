@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     protected $fillable = [
-        'owner_id', 'plan_id', 'agent_id', 'start_date', 'end_date', 'amount_paid', 'status', 'toyyibpay_bill_code',
+        'owner_id', 'plan_id', 'agent_id', 'start_date', 'end_date', 'amount_paid', 'status', 'toyyibpay_bill_code', 'is_trial',
     ];
 
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
+        'is_trial' => 'boolean',
     ];
 
     public function owner()

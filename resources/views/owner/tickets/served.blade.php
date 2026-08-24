@@ -18,7 +18,11 @@
                 <option value="{{ $b->id }}" {{ (string) $branchId === (string) $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
             @endforeach
         </select>
+        <input type="text" name="q" value="{{ $q }}" class="form-control" style="max-width:220px;" placeholder="Cari no. tiket / servis / tukang gunting">
         <button type="submit" class="btn btn-pine btn-sm">Tapis</button>
+        @if ($q || $branchId)
+            <a href="{{ route('owner.tickets.served') }}" class="btn btn-outline-secondary btn-sm">Reset</a>
+        @endif
     </div>
 </form>
 
