@@ -10,6 +10,7 @@
         </a>
         <div>
             <a href="#harga" class="btn btn-outline-light btn-sm me-2">Pakej</a>
+            <a href="#hubungi" class="btn btn-outline-light btn-sm me-2">Hubungi</a>
             <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm me-2">Log Masuk</a>
             <a href="{{ route('register.owner') }}" class="btn btn-brand btn-sm">Daftar Barbershop</a>
         </div>
@@ -168,6 +169,55 @@
                 </div>
             </div>
         @endforeach
+    </div>
+</div>
+
+{{-- ============ HUBUNGI KAMI ============ --}}
+<div id="hubungi" class="mb-5 pt-3">
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-5">
+            <p class="text-muted font-display small mb-2" style="letter-spacing:2px;">ADA SOALAN?</p>
+            <h2 class="font-display mb-3">Hubungi Kami</h2>
+            <p class="text-muted mb-0">
+                Belum pasti pakej mana sesuai untuk kedai anda? Isikan borang ni, pasukan kami akan hubungi
+                anda tak lama lagi untuk bantu pilih pakej yang paling sesuai.
+            </p>
+        </div>
+        <div class="col-lg-7">
+            <div class="card card-brand">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ route('contact.store') }}">
+                        @csrf
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Nama</label>
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <x-phone-field name="phone" label="No. Telefon" :value="old('phone')" />
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Emel (optional)</label>
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Nama Perniagaan (optional)</label>
+                                <input type="text" name="business_name" value="{{ old('business_name') }}" class="form-control">
+                            </div>
+                        </div>
+
+                        <label class="form-label fw-semibold small">Mesej (optional)</label>
+                        <textarea name="message" rows="3" class="form-control mb-3" placeholder="Cth: Saya ada 2 cawangan, pakej mana sesuai?">{{ old('message') }}</textarea>
+
+                        <button type="submit" class="btn btn-brand px-4">Hantar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

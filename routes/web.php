@@ -20,6 +20,7 @@ Route::get('/pricing', function () {
 // Callback ToyyibPay (server-to-server, BUKAN dari browser pelanggan) — kena
 // public & dikecualikan dari CSRF. Lihat nota di bootstrap/app.php.
 Route::post('/toyyibpay/callback', [\App\Http\Controllers\Owner\SubscriptionController::class, 'callback'])->name('toyyibpay.callback');
+Route::post('/hubungi-kami', [\App\Http\Controllers\ContactInquiryController::class, 'store'])->name('contact.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('topup-packages', \App\Http\Controllers\Admin\TopupPackageController::class)->except(['show']);
         Route::get('/topups', [\App\Http\Controllers\Admin\TopupController::class, 'index'])->name('topups.index');
         Route::get('/logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('logs.index');
+        Route::get('/inquiries', [\App\Http\Controllers\Admin\ContactInquiryController::class, 'index'])->name('inquiries.index');
+        Route::post('/inquiries/{inquiry}/status', [\App\Http\Controllers\Admin\ContactInquiryController::class, 'updateStatus'])->name('inquiries.updateStatus');
         Route::get('/owners', [\App\Http\Controllers\Admin\OwnerController::class, 'index'])->name('owners.index');
         Route::get('/owners/{owner}', [\App\Http\Controllers\Admin\OwnerController::class, 'show'])->name('owners.show');
         Route::post('/owners/{owner}/activate', [\App\Http\Controllers\Admin\OwnerController::class, 'activate'])->name('owners.activate');

@@ -46,6 +46,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.inquiries.index') }}" class="nav-link {{ request()->routeIs('admin.inquiries.*') ? 'text-white fw-semibold' : 'text-white-50' }}">
+                        Pertanyaan
+                        @if (($newInquiryCount ?? \App\Models\ContactInquiry::where('status', 'new')->count()) > 0)
+                            <span class="badge text-bg-danger ms-1">{{ $newInquiryCount ?? \App\Models\ContactInquiry::where('status', 'new')->count() }}</span>
+                        @endif
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.logs.index') }}" class="nav-link {{ request()->routeIs('admin.logs.*') ? 'text-white fw-semibold' : 'text-white-50' }}">Log</a>
                 </li>
             </ul>
