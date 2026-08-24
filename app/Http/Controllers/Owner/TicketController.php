@@ -50,7 +50,7 @@ class TicketController extends Controller
         $branches = $this->branches();
         $branchId = $request->input('branch_id');
 
-        $tickets = QueueTicket::with(['branch', 'service', 'barber'])
+        $tickets = QueueTicket::with(['branch', 'service', 'barber', 'preferredBarber'])
             ->whereIn('branch_id', $this->ownerBranchIds())
             ->when($branchId, fn ($q) => $q->where('branch_id', $branchId))
             ->whereIn('status', ['waiting', 'in_progress'])

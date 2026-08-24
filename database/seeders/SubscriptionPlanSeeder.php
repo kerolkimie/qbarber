@@ -18,27 +18,27 @@ class SubscriptionPlanSeeder extends Seeder
                 'max_branches' => 1,
                 'max_barbers' => 5,
                 'is_per_branch_limit' => true,
-                'features' => "Sesuai untuk kedai yang baru buka\nNo angka giliran tanpa had\nTidak boleh pertukaran tukang gunting antara cawangan",
+                'features' => "Sesuai untuk kedai tunggal\nQR code tanpa had\nSkrin paparan giliran masa nyata\nSokongan emel",
             ],
             [
                 'name' => 'Pro',
-                'price' => 130,
+                'price' => 120,
                 'points_included' => 0,
                 'duration_days' => 30,
                 'max_branches' => 2,
                 'max_barbers' => 5,
                 'is_per_branch_limit' => true,
-                'features' => "Sesuai untuk 2 lokasi yang berlainan\nNo angka giliran tanpa had\nBoleh pertukaran tukang gunting antara cawangan",
+                'features' => "Sesuai untuk 2 lokasi kecil\nSemua ciri Basic\nLaporan & analitik lanjutan\nSokongan keutamaan",
             ],
             [
                 'name' => 'Premium',
-                'price' => 250,
+                'price' => 180,
                 'points_included' => 0,
                 'duration_days' => 30,
-                'max_branches' => 4,
+                'max_branches' => 3,
                 'max_barbers' => 5,
                 'is_per_branch_limit' => true,
-                'features' => "Sesuai untuk 1-4 lokasi yang berlainan\nNo angka giliran tanpa had\nBoleh pertukaran tukang gunting antara cawangan",
+                'features' => "Untuk rangkaian barbershop berkembang\nSemua ciri Pro\nAkses API\nAkaun pengurus khusus",
             ],
         ];
 
@@ -56,4 +56,3 @@ class SubscriptionPlanSeeder extends Seeder
         }
     }
 }
-m

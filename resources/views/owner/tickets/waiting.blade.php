@@ -35,7 +35,15 @@
                         <td>#{{ str_pad($t->ticket_number, 3, '0', STR_PAD_LEFT) }}</td>
                         <td class="small text-muted">{{ $t->branch->name ?? '—' }}</td>
                         <td>{{ $t->service->name ?? '—' }}</td>
-                        <td class="small text-muted">{{ $t->barber->name ?? 'Belum dipanggil' }}</td>
+                        <td class="small text-muted">
+                            @if ($t->barber)
+                                {{ $t->barber->name }}
+                            @elseif ($t->preferredBarber)
+                                {{ $t->preferredBarber->name }} <span style="color:var(--brass);">(pilihan)</span>
+                            @else
+                                Tiada pilihan
+                            @endif
+                        </td>
                         <td>
                             <span class="badge {{ $t->status === 'in_progress' ? 'text-bg-warning' : 'text-bg-secondary' }} text-capitalize">
                                 {{ str_replace('_', ' ', $t->status) }}

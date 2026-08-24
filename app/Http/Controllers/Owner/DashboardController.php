@@ -34,7 +34,7 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        $recentWaiting = QueueTicket::with(['service', 'barber', 'branch'])
+        $recentWaiting = QueueTicket::with(['service', 'barber', 'preferredBarber', 'branch'])
             ->whereIn('branch_id', $branchIds)
             ->whereIn('status', ['waiting', 'in_progress'])
             ->orderBy('created_at')
