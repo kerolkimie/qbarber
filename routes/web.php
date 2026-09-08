@@ -87,6 +87,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('logs.index');
         Route::get('/inquiries', [\App\Http\Controllers\Admin\ContactInquiryController::class, 'index'])->name('inquiries.index');
         Route::post('/inquiries/{inquiry}/status', [\App\Http\Controllers\Admin\ContactInquiryController::class, 'updateStatus'])->name('inquiries.updateStatus');
+        Route::get('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('settings.edit');
+        Route::post('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
         Route::get('/owners', [\App\Http\Controllers\Admin\OwnerController::class, 'index'])->name('owners.index');
         Route::get('/owners/{owner}', [\App\Http\Controllers\Admin\OwnerController::class, 'show'])->name('owners.show');
         Route::post('/owners/{owner}/activate', [\App\Http\Controllers\Admin\OwnerController::class, 'activate'])->name('owners.activate');

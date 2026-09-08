@@ -224,7 +224,16 @@ dalam `.env` kepada URL tu sebelum test bayaran.
 - Admin boleh tukar mod ni bila-bila masa di page detail owner
   (`/admin/owners/{id}`) — butang "Tukar ke Online/Offline"
 
-## 12. Yang belum dibina (fasa seterusnya)
+## 12. Tetapan WhatsApp / Hubungi Kami
+
+```bash
+php artisan db:seed --class=SettingSeeder
+```
+Ini seed no. WhatsApp default (013-4558430). Admin boleh tukar bila-bila masa
+di `/admin/settings` — butang WhatsApp terapung di landing page auto-kemaskini
+tanpa perlu ubah kod.
+
+## 13. Yang belum dibina (fasa seterusnya)
 
 - [ ] CRUD Admin: urus pakej (`subscription_plans`), agent, owner
 - [ ] Flow subscription + payment gateway sebenar (buat masa ni owner terus `active` lepas daftar)

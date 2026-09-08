@@ -230,3 +230,14 @@
     </div>
 </div>
 @endsection
+
+@php $whatsappLink = \App\Models\Setting::whatsappLink(); @endphp
+@if ($whatsappLink)
+    @push('scripts')
+    <a href="{{ $whatsappLink }}" target="_blank" rel="noopener"
+       style="position:fixed; bottom:24px; right:24px; z-index:1050; background:#25D366; color:#fff; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,.25); font-size:1.6rem; text-decoration:none;"
+       aria-label="Hubungi kami melalui WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+    @endpush
+@endif

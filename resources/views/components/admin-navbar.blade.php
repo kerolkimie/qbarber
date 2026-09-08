@@ -56,6 +56,9 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.logs.index') }}" class="nav-link {{ request()->routeIs('admin.logs.*') ? 'text-white fw-semibold' : 'text-white-50' }}">Log</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.edit') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'text-white fw-semibold' : 'text-white-50' }}">Tetapan</a>
+                </li>
             </ul>
 
             <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 mt-3 mt-md-0">
