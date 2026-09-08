@@ -272,3 +272,5 @@ resources/views/
 - **Redirect lepas login**: `/dashboard` auto-agih ikut role
   (`DashboardRedirectController`) — admin → `/admin/dashboard`,
   barber → `/barber/dashboard`.
+
+#test
