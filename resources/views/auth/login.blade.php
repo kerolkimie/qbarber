@@ -49,7 +49,7 @@
                     @if (Route::has('register'))
                         <p class="text-center small text-muted mt-3 mb-0">
                             Belum ada akaun?
-                            <a href="{{ route('register') }}" class="text-decoration-none">Daftar Barbershop</a>
+                            <a href="{{ route('register.owner') }}" class="text-decoration-none">Daftar Barbershop</a>
                         </p>
                     @endif
                 </form>
