@@ -12,7 +12,7 @@ class SubscriptionPlanSeeder extends Seeder
         $plans = [
             [
                 'name' => 'Basic',
-                'price' => 70,
+                'price' => 50,
                 'points_included' => 0,
                 'duration_days' => 30,
                 'max_branches' => 1,
@@ -22,7 +22,7 @@ class SubscriptionPlanSeeder extends Seeder
             ],
             [
                 'name' => 'Pro',
-                'price' => 120,
+                'price' => 100,
                 'points_included' => 0,
                 'duration_days' => 30,
                 'max_branches' => 2,
@@ -32,7 +32,7 @@ class SubscriptionPlanSeeder extends Seeder
             ],
             [
                 'name' => 'Premium',
-                'price' => 180,
+                'price' => 160,
                 'points_included' => 0,
                 'duration_days' => 30,
                 'max_branches' => 3,
