@@ -22,7 +22,7 @@ class SubscriptionPlanSeeder extends Seeder
             ],
             [
                 'name' => 'Pro',
-                'price' => 100,
+                'price' => 90,
                 'points_included' => 0,
                 'duration_days' => 30,
                 'max_branches' => 2,

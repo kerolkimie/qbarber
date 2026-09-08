@@ -2,6 +2,8 @@
 
 @section('title', 'Lupa Kata Laluan')
 
+@include('partials.site-photo-bg')
+
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-5">

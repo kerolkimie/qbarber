@@ -2,10 +2,12 @@
 
 @section('title', 'Daftar Barbershop')
 
+@include('partials.site-photo-bg')
+
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-7">
-        <div class="card card-brand mt-4">
+        <div class="card card-brand mt-0">
             <div class="card-header py-3">Daftar Barbershop Anda</div>
             <div class="card-body p-4">
 
