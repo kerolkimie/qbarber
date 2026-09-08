@@ -273,4 +273,4 @@ resources/views/
   (`DashboardRedirectController`) — admin → `/admin/dashboard`,
   barber → `/barber/dashboard`.
 
-#test
+#test lagi
